@@ -65,9 +65,9 @@ public class StreamTests {
     public void shouldGenerateInfiniteStreams() {
         Stream<Integer> infiniteStream = Stream.iterate(0, n -> n + 1);
         int val = infiniteStream.skip(100)
-                                .limit(1)
-                                .findFirst()
-                                .orElse(-1);
+                .limit(1)
+                .findFirst()
+                .orElse(-1);
 
         assertThat(val, is(equalTo(100)));
     }
@@ -105,5 +105,24 @@ public class StreamTests {
                 .count();
 
         assertThat(nonNullCount, is(equalTo(3L)));
+    }
+
+    @Test
+    public void shouldReturnJoinedString() {
+        Stream<String> stream = Stream.of("I", "am", "nerd");
+        assertThat(stream.collect(Collectors.joining(" ")), equalTo("I am nerd"));
+    }
+
+    @Test
+    public void shouldStreamIncrementByThreeAndLimitTen() {
+        List<Integer> stream = Stream.iterate(0, n -> n + 3).limit(5).collect(Collectors.toList());
+
+        assertThat(stream.size(), equalTo(5));
+
+        assertThat(stream.get(0), equalTo(0));
+        assertThat(stream.get(1), equalTo(3));
+        assertThat(stream.get(2), equalTo(6));
+        assertThat(stream.get(3), equalTo(9));
+        assertThat(stream.get(4), equalTo(12));
     }
 }

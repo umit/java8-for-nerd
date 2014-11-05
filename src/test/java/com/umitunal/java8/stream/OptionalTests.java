@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.IntStream;
 
-import static java.util.function.IntUnaryOperator.identity;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
