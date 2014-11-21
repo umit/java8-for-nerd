@@ -90,4 +90,6 @@ public class Product implements Serializable {
                 .append(price)
                 .toHashCode();
     }
+
+
 }

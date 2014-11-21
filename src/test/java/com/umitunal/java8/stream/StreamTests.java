@@ -1,6 +1,7 @@
 package com.umitunal.java8.stream;
 
 
+import com.umitunal.java8.domain.Product;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -24,10 +25,6 @@ public class StreamTests {
     public void shouldCheckWhetherAllElementsMatchThePredicate() {
         assertThat(numbers().allMatch(n -> n < 100), is(equalTo(true)));
         assertThat(numbers().allMatch(n -> n % 2 == 0), is(equalTo(false)));
-    }
-
-    private Stream<Integer> numbers() {
-        return Stream.of(1, 10, 20, 30, 40, 50, 55);
     }
 
     @Test
@@ -124,5 +121,31 @@ public class StreamTests {
         assertThat(stream.get(2), equalTo(6));
         assertThat(stream.get(3), equalTo(9));
         assertThat(stream.get(4), equalTo(12));
+    }
+
+    @Test
+    public void shouldDebugStreamPipeline() {
+        int sum = Stream.of(1, 2, 3, 4, 5)
+                .peek(e -> System.out.println("Taking integer: " + e))
+                .filter(n -> n % 2 == 1)
+                .peek(e -> System.out.println("Filtered integer: " + e))
+                .map(n -> n * n)
+                .peek(e -> System.out.println("Mapped integer: " + e))
+                .reduce(0, Integer::sum);
+
+        assertThat(sum, equalTo(35));
+    }
+
+    @Test
+    public void shouldCreateProductStreamWithStreamBuilder() {
+        Product product = new Product().id(100L);
+        Stream<Product> productStream = Stream.<Product>builder().add(product).build();
+
+        assertThat(productStream.count(), equalTo(1l));
+        assertThat(productStream.findFirst().get(), equalTo(product));
+    }
+
+    private Stream<Integer> numbers() {
+        return Stream.of(1, 10, 20, 30, 40, 50, 55);
     }
 }

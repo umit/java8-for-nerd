@@ -45,8 +45,6 @@ public class BinaryOperatorTests {
 
     @Test
     public void shouldReturnProductByMaximumPrice() {
-
-
         BinaryOperator<Product> operator = BinaryOperator.maxBy(Product.PRICE_ASC);
 
         Product product = operator.apply(product1, product2);
@@ -65,6 +63,5 @@ public class BinaryOperatorTests {
         BiFunction<Product, Product, Boolean> productAndThenFunction = operator.andThen(priceFunction);
 
         assertFalse(productAndThenFunction.apply(product1, product2));
-
     }
 }
