@@ -1,9 +1,8 @@
 package com.umitunal.java8.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.time.LocalDate;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author: umitunal
@@ -78,27 +77,14 @@ public class Person {
         this.income = income;
     }
 
-    public static List<Person> persons() {
-        Person ken = new Person(1, "Ken", Gender.MALE,
-                LocalDate.of(1970, Month.MAY, 4), 6000.0);
-        Person jeff = new Person(2, "Jeff", Gender.MALE,
-                LocalDate.of(1970, Month.JULY, 15), 7100.0);
-        Person donna = new Person(3, "Donna", Gender.FEMALE,
-                LocalDate.of(1962, Month.JULY, 29), 8700.0);
-        Person chris = new Person(4, "Chris", Gender.MALE,
-                LocalDate.of(1993, Month.DECEMBER, 16), 1800.0);
-        Person laynie = new Person(5, "Laynie", Gender.FEMALE,
-                LocalDate.of(2012, Month.DECEMBER, 13), 0.0);
-        Person lee = new Person(6, "Li", Gender.MALE, LocalDate.of(2001, Month.MAY, 9), 2400.0);
-
-        // Create a list of persons
-        List<Person> persons = Arrays.asList(ken, jeff, donna, chris, laynie, lee);
-
-        return persons;
-    }
-
     @Override
     public String toString() {
-        return String.format("(%s, %s, %s, %s, %.2f)", id, name, gender, dob, income);
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("gender", gender)
+                .append("dob", dob)
+                .append("income", income)
+                .toString();
     }
 }
